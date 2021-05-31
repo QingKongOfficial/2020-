@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+
+<!-- <head>
+    <title>Edit Profile </title>
+    <link rel="stylesheet" href={{ url_for( 'static', filename='css/editProfile.css' ) }} />
+    <link rel="stylesheet" href={{ url_for( 'static', filename='css/topStyle.css' ) }} />
+</head> -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>my Shop </title>
+    <link rel="stylesheet" href={{ url_for( 'static', filename='css/editProfile.css' ) }} />
+    <link rel="stylesheet" href={{ url_for( 'static', filename='css/topStyle.css' ) }} />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS 
+    ========================= -->
+    <!--bootstrap min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/bootstrap.min.css" )}}>
+
+    <!--owl carousel min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/owl.carousel.min.css" )}}>
+
+    <!--slick min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/slick.css" )}}>
+
+    <!--magnific popup min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/magnific-popup.css" )}}>
+
+    <!--font awesome css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/font.awesome.css" )}}>
+
+    <!--ionicons css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/ionicons.min.css" )}}>
+
+    <!--7 stroke icons css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/pe-icon-7-stroke.css" )}}>
+
+    <!--animate css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/animate.css" )}}>
+
+    <!--jquery ui min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/jquery-ui.min.css" )}}>
+
+    <!--plugins css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/plugins.css" )}}>
+
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/style.css" )}}>
+
+    <!--modernizr min js here-->
+    <script src="{{ url_for( 'static', filename='assets/js/vendor/modernizr-3.7.1.min.js' )}}"></script>
+
+
+
+</head>
+
+<body>
+    <div id="title">
+        <a href="/myshop?SPU_Id={{SPU_Id}}">
+            <img id="logo" src={{ url_for( 'static', filename='images/logo.png' ) }} />
+        </a>
+        <form>
+            <input id="searchBox" type="text" name="searchQuery">
+            <input id="searchButton" type="submit" value="Search">
+        </form>
+
+        <div class="dropdown">
+            <button class="dropbtn">Hello<br>{{firstName}}</button>
+            <div class="dropdown-content">
+               <!--your order 后面需要改成商家的订单页面-->
+                <a href="/account/orders">Your orders</a>
+                <a href="/account/profile">Your profile</a>
+            </div>
+        </div>
+        <div id="signInButton">
+            <a class="link" href="/logout">Sign out</a>
+        </div>
+
+        <!--
+        <div id="kart">
+            <a class="link" href="/cart">
+                <img src={{url_for( 'static', filename='images/shoppingCart.png' )}} id="cartIcon" /> CART {{noOfItems}}
+            </a>
+        </div>
+       -->
+    </div>
+    <br><br><br><br><br>
+    <div class="shop_area shop_reverse">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <!--sidebar widget start-->
+                <aside class="sidebar_widget">
+                    <div class="widget_inner">
+                        <div class="widget_list widget_categories">
+                            <!-- 这里放spu -->
+                            <ul>
+                                <div class="col-12">
+                                    <butto>
+                                        <!-- 这里放添加spu的链接 -->
+                                        <a class="account_form button" href="/test_add_spu">添加SPU</a>
+                                    </butto>
+                                </div>
+
+                                {% for i in list1 %}
+                                <li class="widget_sub_categories sub_categories1"><a href="javascript:void(0)" class="active">{{i[0][1]}}</a>
+                                    {% for x in i[1] %}
+                                    <ul class="widget_dropdown_categories dropdown_categories1" style="display: block;">
+                                        {% if x[0]==SPU_Id %}
+                                        <li><a href="/myshop?SPU_Id={{x[0]}}">
+                                            <font  color="#febc8b">{{x[1]}}</font>
+                                            </a></li>
+                                        {% else %}
+                                        <li><a href="/myshop?SPU_Id={{x[0]}}">{{x[1]}}</a></li>
+                                        {%  endif %}
+                                    </ul>
+                                    {% endfor %}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+                <!--sidebar widget end-->
+            </div>
+            <div class="col-lg-9 col-md-12">
+                <!--shop wrapper start-->
+
+                <div class="row shop_wrapper grid_list">
+
+                    <!-- 这里放sku -->
+                    {% for i in list2 %}
+                    <div class="col-12">
+                        <div class="single_product">
+                            <div class="product_thumb">
+                               <!--<a  href="product-details.html">-->
+                                    <div>
+                                    <img  src={{ url_for('static', filename='uploads/' + i[6]) }} width="200" alt="这里放图片，还有商品详情的链接"> 
+                                    </div>
+                                <!--</a>-->
+                            </div>
+                            <div class="product_content list_content">
+                                <h4 class="product_name"><a href="/show_productDescription?SKU_Id={{i[0]}}">{{i[1]}}</a></h4>
+                                <div class="price_box">
+                                    <span class="current_price">￥{{i[3]/100}}</span>
+                                </div>
+                                <div class="price_box">
+                                    <span class="current_price">库存： {{i[5]}}</span>
+                                </div>
+                                <div class="product_desc">
+                                    {{i[2]}}
+                                </div>
+                                <div>
+                                    <!--如果写好了删除功能，直接传入sku_id，进行remove-->
+                                    <!--<a href="#"> <button name="Delete">删除</button> </a>-->
+                                    <butto>
+                                        <!-- 这里放添加sku的链接 -->
+                                        <a class="account_form button" href="/remove_SKU?SKU_Id={{i[0]}}&SPU_Id={{SPU_Id}}">删除</a>
+                                    </butto>
+                                    <button>
+                                        <!-- 这里放修改sku的链接 -->
+                                        <a class="account_form button" href="/test_edit_SKU?SKU_Id={{i[0]}}&SPU_Id={{SPU_Id}}">修改</a>
+                                    </button>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% if SPU_Id !=-1 %}
+                    <div class="col-12">
+                        <butto>
+                            <!-- 这里放添加sku的链接 -->
+                            <a class="account_form button" href="/test_add_sku?SPU_Id={{SPU_Id}}">添加商品</a>
+                        </butto>
+                    </div>
+                    {% else %}
+
+                    {% endif %}
+                </div>
+                <!-- <div class="shop_toolbar t_bottom">
+                    <div class="pagination">
+                        <ul>
+                            <li class="current">1</li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li class="next"><a href="#">next</a></li>
+                            <li><a href="#">&gt;&gt;</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+                <!--shop toolbar end-->
+                <!--shop wrapper end-->
+            </div>
+        </div>
+    </div>
+
+</body>

@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <link rel="stylesheet" href={{url_for( 'static', filename='css/productDescription.css' )}} />
+    <link rel="stylesheet" href={{ url_for( 'static', filename='css/topStyle.css' )}} />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>商品详情</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS 
+    ========================= -->
+    <!--bootstrap min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/bootstrap.min.css" )}}>
+
+    <!--owl carousel min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/owl.carousel.min.css" )}}>
+
+    <!--slick min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/slick.css" )}}>
+
+    <!--magnific popup min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/magnific-popup.css" )}}>
+
+    <!--font awesome css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/font.awesome.css" )}}>
+
+    <!--ionicons css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/ionicons.min.css" )}}>
+
+    <!--7 stroke icons css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/pe-icon-7-stroke.css" )}}>
+
+    <!--animate css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/animate.css" )}}>
+
+    <!--jquery ui min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/jquery-ui.min.css" )}}>
+
+    <!--plugins css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/plugins.css" )}}>
+
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/style.css" )}}>
+
+</head>
+
+<body>
+    <div id="title">
+        <a href="/">
+            <img id="logo" src={{ url_for( 'static', filename='images/logo.png' ) }} />
+        </a>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input id="searchBox" type="text" name="search_key">
+            <input id="searchButton" type="submit" value="Search">
+        </form>
+
+        {% if not loggedIn %}
+        <div id="signInButton">
+            <a class="link" href="/test_loginForm">Sign In</a>
+        </div>
+        {% else %}
+        <div class="dropdown">
+            <button class="dropbtn">Hello <br></button>
+            <div class="dropdown-content">
+                <a href="/account/orders">Your orders</a>
+                <a href="/account/profile">Your profile</a>
+                <hr>
+                <a href="/logout">Sign Out</a>
+            </div>
+        </div>
+        {% endif %}
+        <div id="kart">
+            <a class="link" href="/cart">
+                <img src={{url_for( 'static', filename='images/shoppingCart.png' )}} id="cartIcon" /> CART {{noOfItems}}
+            </a>
+        </div>
+        <div id="kart">
+            <a class="link" href="/wishlist">
+               <img  src={{url_for('static', filename='images/wishlist1.png')}} id="wishIcon"/> WISH {{noOfItems}}
+            </a>
+            </div>
+    </div>
+
+    <br><br><br><br><br><br>
+    <div class="section_bg">
+        <div class="container">
+            <!--breadcrumbs area start-->
+            <div class="breadcrumbs_area">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb_content">
+                            <ul>
+                                <li><a href="/">home</a></li>
+                                <li>product details</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs area end-->
+
+            <!--product details start-->
+            <div class="product_details mb-60">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <div class="product-details-tab">
+                            <div>
+                                <img src={{ url_for( 'static', filename='uploads/' + data[6]) }} width="300" alt="这里放上商品图片">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="product_d_right">
+
+                            <div class="productd_title_nav">
+                                <h1> {{data[1]}} </h1>
+                            </div>
+                            <div class="price_box">
+                                <span class="current_price">￥： {{data[3]/100.0}}</span>
+                            </div>
+                            <div class="product_desc">
+                                <p> &nbsp;&nbsp;{{data[2]}} </p>
+                            </div>
+
+                            <div class="product_variant quantity">
+                                <form action="/addToCart" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="SKU_Id" value="{{data[0]}}">
+                                    <label>quantity</label>
+                                    <input min="1" max={{data[5]}} value="1" name="qty" type="number">
+                                    <button class="button" type="submit">add to cart</button>
+                                </form>
+                            </div>
+
+                            <div class=" product_d_action">
+                                <ul>
+                                    <li><a href="/addToCollection?SKU_Id={{data[0]}}" title="Add to wishlist">+ Add to Wishlist</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--product details end-->
+
+        </div>
+    </div>
+
+</body>
+
+</html>

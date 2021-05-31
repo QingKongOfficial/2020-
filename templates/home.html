@@ -1,0 +1,241 @@
+<!-- <!DOCTYPE HTML>
+<html>
+<head>
+<title>Welcome</title>
+<link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+</head>
+<body>
+<div id="title">
+	<a href="/">
+		<img id="logo" src= {{ url_for('static', filename='images/logo.png') }} />
+	</a>
+	<form>
+		<input id="searchBox" type="text" name="searchQuery">
+		<input id="searchButton" type="submit" value="Search">
+	</form>
+
+	{% if not loggedIn %}
+	<div id="signInButton">
+		<a class="link" href="/test_loginForm">Sign In</a>
+	</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hello, <br>{{firstName}}</button>
+		<div class="dropdown-content">
+			<a href="/account/orders">Your orders</a>
+			<a href="/account/profile">Your profile</a>
+			<hr>
+			<a href="/logout">Sign Out</a>
+		</div>
+	</div>
+	{% endif %}
+	<div id="kart">
+		<a class="link" href="/cart">
+			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+			CART {{noOfItems}}
+		</a>
+	</div>
+</div>
+<div class="display">
+	<div class="displayCategory">
+		<h2>Shop by Category: </h2>
+		<ul>
+			{% for row in categoryData %}
+			<li><a href="/displayCategory?categoryId={{row[0]}}">{{row[1]}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div>
+		<h2>Items</h2>
+		{% for data in itemData %}
+		<table>
+			<tr id="productName">
+				{% for row in data %}
+				<td>
+					{{row[1]}}
+				</td>
+				{% endfor %}
+			</tr>
+			<tr id="productImage">
+				{% for row in data %}
+				<td>
+					<a href="/productDescription?productId={{row[0]}}">
+						<img src={{ url_for('static', filename='uploads/' + row[4]) }} id="itemImage" />
+					</a>
+				</td>
+				{% endfor %}
+			</tr>
+			<tr id="productPrice">
+				{% for row in data %}
+				<td>
+					${{row[2]}}
+				</td>
+				{% endfor %}
+			</tr>
+		</table>
+		{% endfor %}
+	</div>
+</div>
+</body>
+</html> -->
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Welcome</title>
+    <link rel="stylesheet" href={{ url_for( 'static', filename='css/home.css' ) }} />
+    <link rel="stylesheet" href={{ url_for( 'static', filename='css/topStyle.css' ) }} />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS 
+    ========================= -->
+    <!--bootstrap min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/bootstrap.min.css" )}}>
+
+    <!--owl carousel min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/owl.carousel.min.css" )}}>
+
+    <!--slick min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/slick.css" )}}>
+
+    <!--magnific popup min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/magnific-popup.css" )}}>
+
+    <!--font awesome css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/font.awesome.css" )}}>
+
+    <!--ionicons css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/ionicons.min.css" )}}>
+
+    <!--7 stroke icons css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/pe-icon-7-stroke.css" )}}>
+
+    <!--animate css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/animate.css" )}}>
+
+    <!--jquery ui min css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/jquery-ui.min.css" )}}>
+
+    <!--plugins css-->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/plugins.css" )}}>
+
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href={{ url_for( 'static', filename="assets/css/style.css" )}}>
+    
+</head>
+
+<body>
+    <div id="title">
+        <a href="/">
+            <img id="logo" src={{ url_for( 'static', filename='images/logo.png' ) }} />
+        </a>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input id="searchBox" type="text" name="search_key">
+            <input id="searchButton" type="submit" value="Search">
+        </form>
+
+        {% if not loggedIn %}
+        <div id="signInButton">
+            <a class="link" href="/test_loginForm">Sign In</a>
+        </div>
+        {% else %}
+        <div class="dropdown">
+            <button class="dropbtn">Hello, <br>{{firstName}}</button>
+            <div class="dropdown-content">
+                <a href="/account/orders">Your orders</a>
+                <a href="/account/profile">Your profile</a>
+                <hr>
+                <a href="/logout">Sign Out</a>
+            </div>
+        </div>
+        {% endif %}
+        <div id="kart">
+            <a class="link" href="/cart">
+                <img src={{url_for( 'static', filename='images/shoppingCart.png' )}} id="cartIcon" /> CART {{noOfItems}}
+            </a>
+
+        </div>
+        <div id="kart">
+        <a class="link" href="/wishlist">
+           <img  src={{url_for('static', filename='images/wishlist1.png')}} id="wishIcon"/> WISH {{noOfItems}}
+        </a>
+        </div>
+    </div>
+    <br> <br> <br> <br> <br> <br> <br>
+    <div class="shop_area shop_reverse">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <!--sidebar widget start-->
+                <aside class="sidebar_widget">
+                    <div class="widget_inner">
+                        <div class="widget_list widget_categories">
+
+                            <!-- 这里从数据库获取并展示目录 -->
+                            <ul>
+                                {% for i in list1 %}
+                                <li class="widget_sub_categories sub_categories1"><a href="javascript:void(0)" class="active">{{i[0][1]}}</a>
+                                    {% for x in i[1] %}
+                                    <ul class="widget_dropdown_categories dropdown_categories1" style="display: block;">
+                                        <!-- 每个spu点击后等效于搜索这个spu的关键词 -->
+                                        {% if x[0]==SPU_Id %}
+                                        <li><a href="/?SPU_Id={{x[0]}}">
+                                            <font  color="#febc8b">{{x[1]}}</font>
+                                            </a></li>
+                                        {% else %}
+                                        <li><a href="/?SPU_Id={{x[0]}}">{{x[1]}}</a></li>
+                                        {%  endif %}
+                                    </ul>
+                                    {% endfor %}
+                                </li>
+                                {% endfor %}
+
+                            </ul>
+
+
+                        </div>
+                    </div>
+                </aside>
+                <!--sidebar widget end-->
+            </div>
+            <div class="col-lg-9 col-md-12">
+                <!--shop wrapper start-->
+                <div class="row shop_wrapper grid_3">
+                    <!-- 这里放sku -->
+                    <!-- 如果没有搜索过的话，就显示推荐的商品 -->
+                    <!-- 如果搜索过的话，就显示搜索出来的商品 -->
+                    {% for i in list2 %}
+                    <div class="col-md-4 col-sm-6 col-lg-4">
+                        <div class="single_product">
+                            <div class="product_thumb">
+                                <a class="primary_img" href="show_productDescription?SKU_Id={{i[0]}}"><img src={{ url_for('static', filename='uploads/' + i[6]) }} width="200" alt="这里放图片，还有商品详情的链接"></a>
+                            </div>
+                            <div class="product_content grid_content">
+                                <h4 class="product_name"><a href="/show_productDescription?SKU_Id={{i[0]}}">{{i[1]}}</a></h4>
+                                <div class="price_box">
+                                    <span class="current_price">￥{{i[3]/100}}</span>
+                                </div>
+                                <div class="add_to_cart">
+                                    <a href="/show_productDescription?SKU_Id={{i[0]}}" title="" data-original-title="Add to cart"><i
+                                            class="fa fa-shopping-cart" aria-hidden="true"></i> 点击进入</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
